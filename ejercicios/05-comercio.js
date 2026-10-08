@@ -36,9 +36,24 @@
 // Esta línea trae tu clase Usuario del ejercicio 04
 const { Usuario } = require("./04-clase-usuario");
 
-class Comercio {
-  // Tu código aquí
+class Comercio extends Usuario{
+  constructor(nombre, saldo, comision){
+    super(nombre, saldo);
+    this.comision= comision;
+  }
+
+  enviar(monto){
+    const comisionMonto = monto * this.comision /100;
+    monto+= comisionMonto;
+    return super.enviar(monto);
+  }
 }
+
+const espiga = new Comercio("Panadería La Espiga", 50000, 3);
+console.log(espiga.enviar(20000));//→ "Panadería La Espiga envió $20600. Saldo: $29400"
+
+const kiosco = new Comercio("Kiosco Central", 10200, 3);
+console.log(kiosco.enviar(10000)); //→ "Saldo insuficiente"   (10000 + 300 = 10300)
 
 // No borres esta línea: es la puerta por donde el test usa tu clase
 module.exports = { Comercio };
