@@ -33,16 +33,49 @@
 // ============================================================
 
 class Vehiculo {
-  // Tu código aquí
+  constructor(placa, pasajeros){
+    this.placa=placa;
+    this.pasajeros=pasajeros;
+  }
+
+  tarifa(){
+    let tarifaBase = 2950; 
+    return tarifaBase;
+  }
+
+  reporte(){
+    return `${this.placa} | ${this.pasajeros} pasajeros | Tarifa: $${this.tarifa()}`
+  }
 }
 
-class Alimentador {
-  // Tu código aquí
+class Alimentador extends Vehiculo {
+   tarifa(){
+    let tarifaBase = 0; 
+    return tarifaBase;
+  }
 }
 
-class BusDual {
-  // Tu código aquí
+class BusDual extends Vehiculo {
+  constructor(placa, pasajeros, esElectrico){
+    super(placa,pasajeros);
+    this.esElectrico = esElectrico;
+  }
+  
+  tarifa(){
+    if(this.esElectrico === true){
+      let tarifaBase = 2500; 
+      return tarifaBase;
+    }else{
+      let tarifaBase = 3200; 
+      return tarifaBase;
+    }
+  }
 }
+
+console.log(new Vehiculo("RVT101", 40).reporte());    //  → "RVT101 | 40 pasajeros | Tarifa: $2950"
+console.log(new Alimentador("ALM202", 25).reporte());  //→ "ALM202 | 25 pasajeros | Tarifa: $0"
+console.log(new BusDual("DUA303", 80, true).tarifa())  //→ 2500
+console.log(new BusDual("DUA404", 80, false).tarifa()); // → 3200
 
 // No borres esta línea: es la puerta por donde el test usa tus clases
 module.exports = { Vehiculo, Alimentador, BusDual };

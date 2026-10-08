@@ -35,9 +35,28 @@
 // Esta línea trae tu clase Pelicula del ejercicio 02
 const { Pelicula } = require("./02-clase-pelicula");
 
-class PeliculaVIP {
-  // Tu código aquí
+class PeliculaVIP extends Pelicula{
+  constructor(titulo, duracion,incluyeComida ){
+    super(titulo, duracion);
+    this.incluyeComida = incluyeComida;
+  }
+
+  precioBoleta(){
+    this.precioBase += 25000;
+    if(this.incluyeComida === true){
+      return super.precioBoleta(this.precioBase += 18000);
+    }else{
+      return super.precioBoleta(this.precioBase);
+    }
+  }
 }
+
+const vip = new PeliculaVIP("Río Profundo", 118, true);
+console.log( vip.precioBoleta()); //→ 58000   (15000 + 25000 + 18000)
+console.log( vip.ficha())  //→ "Río Profundo | 118 min | $58000"
+
+const vip2= new PeliculaVIP("Cometa", 95, false).precioBoleta();
+console.log( vip2)  //→ "Río Profundo | 118 min | $58000"
 
 // No borres esta línea: es la puerta por donde el test usa tu clase
 module.exports = { PeliculaVIP };
