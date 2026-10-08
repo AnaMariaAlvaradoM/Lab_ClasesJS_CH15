@@ -34,10 +34,22 @@
 // ============================================================
 
 // Esta línea trae tu clase Usuario del ejercicio 04
+
 const { Usuario } = require("./04-clase-usuario");
 
-class Comercio {
-  // Tu código aquí
+class Comercio extends Usuario {
+
+  constructor(nombre, saldo, comision) {
+    super(nombre, saldo);
+    this.comision = comision;
+  }
+
+  enviar(monto) {
+    const valorComision = monto * this.comision / 100;
+    const total = monto + valorComision;
+
+    return super.enviar(total);
+  }
 }
 
 // No borres esta línea: es la puerta por donde el test usa tu clase
